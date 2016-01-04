@@ -8,12 +8,15 @@ USER root
 # install chrome 
 # from https://hub.docker.com/r/truhuynh/chrome/~/dockerfile/
 
-RUN yum -y update; yum clean all
+RUN yum clean all && rm -rf /var/cache/yum/*
+#RUN yum -y update; yum clean all
 RUN yum -y install mesa-dri-drivers libexif libcanberra-gtk2 libcanberra; yum clean all
 
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm /root/google-chrome-stable_current_x86_64.rpm
 
 RUN yum -y install /root/google-chrome-stable_current_x86_64.rpm; yum clean all
+ADD chromedriver /usr/bin/
+RUN chmod 755 /usr/bin/chromedriver
 
 # install firefox
 # from https://hub.docker.com/r/kevensen/centos-vnc-firefox/~/dockerfile/
